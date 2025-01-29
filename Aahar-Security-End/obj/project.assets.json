@@ -2119,11 +2119,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\data\\C-DAC\\MyGitData\\CDAC-FINAL-PROJECT-KD3\\Aahar-Security-End\\Aahar-Security-End.csproj",
+      "projectUniqueName": "F:\\data\\C-DAC\\MyGitData\\aahar\\Aahar-Security-End\\Aahar-Security-End.csproj",
       "projectName": "Aahar-Security-End",
-      "projectPath": "F:\\data\\C-DAC\\MyGitData\\CDAC-FINAL-PROJECT-KD3\\Aahar-Security-End\\Aahar-Security-End.csproj",
+      "projectPath": "F:\\data\\C-DAC\\MyGitData\\aahar\\Aahar-Security-End\\Aahar-Security-End.csproj",
       "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "F:\\data\\C-DAC\\MyGitData\\CDAC-FINAL-PROJECT-KD3\\Aahar-Security-End\\obj\\",
+      "outputPath": "F:\\data\\C-DAC\\MyGitData\\aahar\\Aahar-Security-End\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

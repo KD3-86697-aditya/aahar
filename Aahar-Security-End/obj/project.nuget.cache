@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VbVSOsxfUPQ=",
+  "dgSpecHash": "Ja7FIOxSrBU=",
   "success": true,
-  "projectFilePath": "F:\\data\\C-DAC\\MyGitData\\CDAC-FINAL-PROJECT-KD3\\Aahar-Security-End\\Aahar-Security-End.csproj",
+  "projectFilePath": "F:\\data\\C-DAC\\MyGitData\\aahar\\Aahar-Security-End\\Aahar-Security-End.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lenovo\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.30\\microsoft.aspnetcore.authentication.jwtbearer.6.0.30.nupkg.sha512",

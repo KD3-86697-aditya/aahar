@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Aahar-Security-End")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd839cbfa98ebe3aab989c0973d8e5bfab548dae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3ff335697617260cda0f419caa28965cba5f10a9")]
 [assembly: System.Reflection.AssemblyProductAttribute("Aahar-Security-End")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Aahar-Security-End")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
