@@ -7,29 +7,28 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "user_subscriptions") // Mapping to the UserSubscriptions table
 @Getter
 @Setter
 @ToString
-public class UserSubscription extends BaseEntity {
+@Entity
+@Table(name = "user_subscriptions")
+public class UserSubscription extends BaseEntity { // Extending BaseEntity
 
-    @ManyToOne(fetch = FetchType.LAZY) // Many subscriptions can belong to one user
-    @JoinColumn(name = "user_id", nullable = false) // Foreign key referencing Users table
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Many subscriptions can belong to one mess
-    @JoinColumn(name = "mess_id", nullable = false) // Foreign key referencing Messes table
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mess_id", nullable = false)
     private Mess mess;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Many subscriptions can belong to one subscription plan
-    @JoinColumn(name = "plan_id", nullable = false) // Foreign key referencing SubscriptionPlans table
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "plan_id", nullable = false)
     private SubscriptionPlan subscriptionPlan;
 
     @Column(name = "start_date", nullable = false)
-    private LocalDate startDate; // Subscription start date
+    private LocalDate startDate;
 
     @Column(name = "end_date", nullable = false)
-    private LocalDate endDate; // Subscription end date
+    private LocalDate endDate;
 }
-

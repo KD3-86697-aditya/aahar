@@ -5,21 +5,21 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "order_items") // Mapping to the OrderItems table
 @Getter
 @Setter
 @ToString
+@Entity
+@Table(name = "order_items")
 public class OrderItem extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY) // Each order item belongs to a specific order
-    @JoinColumn(name = "order_id", nullable = false) // Foreign key referencing Orders table
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Each order item is associated with a specific menu item
-    @JoinColumn(name = "menu_item_id", nullable = false) // Foreign key referencing MenuItems table
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "menu_item_id", nullable = false)
     private MenuItem menuItem;
 
-    @Column(nullable = false)
-    private int quantity; // Quantity of the menu item in the order
+    @Column(name = "quantity", nullable = false)
+    private int quantity;
 }
