@@ -23,9 +23,4 @@ public class Location extends BaseEntity {
     @Column(name = "pincode", length = 10)
     private String pincode;
 
-    @Column(name = "latitude", precision = 10)
-    private Double latitude;
-
-    @Column(name = "longitude", precision = 11)
-    private Double longitude;
 }
