@@ -1,4 +1,5 @@
 package com.aahar.pojos;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -7,6 +8,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -43,4 +45,7 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING) // Store the enum as a string in the database
     @Column(name = "role", nullable = false)
     private UserRole role = UserRole.CUSTOMER; // Default role is CUSTOMER
+
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted = false; // Soft delete flag (false = active user)
 }

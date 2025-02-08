@@ -18,7 +18,7 @@ public class WeeklyMenu extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "day_of_week", nullable = false)
-    private DayOfWeek dayOfWeek;
+    private DayOfWeek weekday ;
 
     // Enum for days of the week
     public enum DayOfWeek {

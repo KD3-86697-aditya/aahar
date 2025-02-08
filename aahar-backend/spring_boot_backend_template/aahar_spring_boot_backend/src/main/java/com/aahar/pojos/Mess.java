@@ -34,4 +34,12 @@ public class Mess extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "mess_owner_id", nullable = false)
     private User messOwner;
+
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted = false; // Default to false (not deleted)
+
+    // Soft delete method
+    public void softDelete() {
+        this.deleted = true;
+    }
 }
