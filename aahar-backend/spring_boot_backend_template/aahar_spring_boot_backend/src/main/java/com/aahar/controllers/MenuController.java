@@ -1,6 +1,5 @@
 package com.aahar.controllers;
 
-import java.time.DayOfWeek;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aahar.dtos.AddMenuItemReqDTO;
+import com.aahar.dtos.MenuItemReqDTO;
 import com.aahar.dtos.MenuItemRespDTO;
 import com.aahar.dtos.MenuItemUpdateRequest;
-import com.aahar.pojos.MenuItem;
-import com.aahar.pojos.MenuItem.MealType;
-import com.aahar.pojos.WeeklyMenu;
+import com.aahar.pojos.DayOfWeek;
+import com.aahar.pojos.MealType;
+import com.aahar.service.MenuService;
 import com.aahar.service.MenuServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -35,61 +36,59 @@ import lombok.RequiredArgsConstructor;
 public class MenuController {
 
 	@Autowired
-    private  MenuServiceImpl menuService;
-    
-    public MenuController()
-    {
+	private MenuService menuService;
+
+	public MenuController() {
 		System.out.println("Inside  constructor " + getClass());
-    }
+	}
 
-    @GetMapping("/weekly/{messOwnerId}")
-    public ResponseEntity<List<MenuItemRespDTO>> getWeeklyMenu(@PathVariable Long messOwnerId) {
-        List<MenuItemRespDTO> menuItems = menuService.getWeeklyMenu(messOwnerId);
-        System.out.println("this is the query result  this is menu  controller speaking ");
-        
-        menuItems.forEach(System.out::println);
-        return ResponseEntity.ok(menuItems);
-        
-    }
+	@GetMapping("/weekly/{messOwnerId}")
+	public ResponseEntity<List<MenuItemRespDTO>> getWeeklyMenu(@PathVariable Long messOwnerId) {
+		List<MenuItemRespDTO> menuItems = menuService.getWeeklyMenu(messOwnerId);
+		System.out.println("this is the query result  this is menu  controller speaking ");
 
- // Add a new menu item
-    @PostMapping("/add")
-    public ResponseEntity<?> addMenuItem(
-            @RequestParam Long messOwnerId,
-            @RequestParam String dishName,
-            @RequestParam double price,
-            @RequestParam com.aahar.pojos.WeeklyMenu.DayOfWeek dayOfWeek,  // Change this
-            @RequestParam MealType mealType) {
+		menuItems.forEach(System.out::println);
+		return ResponseEntity.ok(menuItems);
 
-        MenuItemRespDTO menuItemDto = menuService.addMenuItem(messOwnerId, dishName, price, dayOfWeek, mealType);
-        return ResponseEntity.ok(menuItemDto);
-    }
+	}
 
-    @PutMapping("/update")
-    public ResponseEntity<String> updateMenuItem(@RequestBody MenuItemUpdateRequest updateRequest) {
-        try {
-            menuService.updateMenuItem(updateRequest);
-            return ResponseEntity.ok("Menu item updated successfully.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating menu item.");
+	// Add a new menu item
+	@PostMapping("/add")
+	public ResponseEntity<?> addMenuItem(@RequestParam Long messOwnerId, @RequestBody AddMenuItemReqDTO requestDTO) {
+		// Convert the dayOfWeek to uppercase manually
+        if (requestDTO.getMenuItem().getDayOfWeek() != null) {
+        	requestDTO.getMenuItem().setDayOfWeek(requestDTO.getMenuItem().getDayOfWeek().toUpperCase());
+        	requestDTO.getMenuItem().setMealType(requestDTO.getMenuItem().getMealType().toUpperCase());
         }
-    }
+		MenuItemRespDTO menuItemDto = menuService.addMenuItem(messOwnerId, requestDTO.getMenuItem(),requestDTO.getNutritionalInfo());
+		return ResponseEntity.ok(menuItemDto);
+	}
 
-    @DeleteMapping("/delete/{menuItemId}")
-    public ResponseEntity<String> deleteMenuItem(@PathVariable Long menuItemId) {
-        try {
-            boolean deleted = menuService.deleteMenuItem(menuItemId);
-            if (deleted) {
-                return ResponseEntity.ok("Menu item deleted successfully.");
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Menu item not found.");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error deleting menu item: " + e.getMessage());
-        }
-    }
-     
+	@PutMapping("/update")
+	public ResponseEntity<String> updateMenuItem(@RequestBody MenuItemUpdateRequest updateRequest) {
+		try {
+			menuService.updateMenuItem(updateRequest);
+			return ResponseEntity.ok("Menu item updated successfully.");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating menu item.");
+		}
+	}
+
+	@DeleteMapping("/delete/{menuItemId}")
+	public ResponseEntity<String> deleteMenuItem(@PathVariable Long menuItemId) {
+		try {
+			boolean deleted = menuService.deleteMenuItem(menuItemId);
+			if (deleted) {
+				return ResponseEntity.ok("Menu item deleted successfully.");
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Menu item not found.");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Error deleting menu item: " + e.getMessage());
+		}
+	}
+
 //    @PutMapping("/update/{menuItemId}")
 //    public ResponseEntity<?> updateMenuItem(
 //            @PathVariable Long menuItemId,

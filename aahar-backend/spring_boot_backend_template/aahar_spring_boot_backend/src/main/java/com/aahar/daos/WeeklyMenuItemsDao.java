@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.aahar.pojos.DayOfWeek;
 import com.aahar.pojos.MenuItem;
 import com.aahar.pojos.WeeklyMenu;
 import com.aahar.pojos.WeeklyMenuItem;
@@ -20,7 +21,7 @@ public interface WeeklyMenuItemsDao extends JpaRepository<WeeklyMenuItem, Long> 
     
     // Fetch all menu items for a specific day
     @Query("SELECT wmi FROM WeeklyMenuItem wmi WHERE wmi.weeklyMenu.weekday = :dayOfWeek")
-    List<WeeklyMenuItem> findByDayOfWeek(@Param("dayOfWeek") WeeklyMenu.DayOfWeek dayOfWeek);
+    List<WeeklyMenuItem> findByDayOfWeek(@Param("dayOfWeek") DayOfWeek dayOfWeek);
 
     
     @Query("SELECT wmi FROM WeeklyMenuItem wmi WHERE wmi.weeklyMenu.mess.messOwner.id = :messOwnerId")

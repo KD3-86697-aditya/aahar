@@ -30,7 +30,5 @@ public class MenuItem extends BaseEntity {
     @Column(name = "meal_type", nullable = false)
     private MealType mealType;
 
-    public enum MealType {
-        BREAKFAST, LUNCH, DINNER
-    }
+   
 }

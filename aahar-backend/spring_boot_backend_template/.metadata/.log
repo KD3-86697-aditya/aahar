@@ -290,6 +290,7 @@ java.lang.InterruptedException
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2025-02-10 02:39:10.380
 !MESSAGE Classpath changed for project: aahar_spring_boot_backend
+<<<<<<< HEAD
 
 !ENTRY org.eclipse.ui 4 0 2025-02-10 03:19:41.744
 !MESSAGE Unhandled event loop exception
@@ -592,3 +593,5 @@ org.eclipse.swt.SWTException: Device is disposed
 	at org.eclipse.egit.ui.internal.decorators.GitDecorator.fireLabelEvent(GitDecorator.java:89)
 	at org.eclipse.egit.ui.internal.decorators.GitDecorator$EventJob.run(GitDecorator.java:143)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+=======
+>>>>>>> ankush-branch

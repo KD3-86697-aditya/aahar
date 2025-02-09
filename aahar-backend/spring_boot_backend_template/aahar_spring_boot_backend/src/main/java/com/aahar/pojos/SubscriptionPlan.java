@@ -31,8 +31,5 @@ public class SubscriptionPlan extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "meal_type", nullable = false)
     private MealType mealType; // Enum for meal type (breakfast, lunch, dinner, or all)
-    
-    public enum MealType {
-        BREAKFAST, LUNCH, DINNER, ALL
-    }
+
 }

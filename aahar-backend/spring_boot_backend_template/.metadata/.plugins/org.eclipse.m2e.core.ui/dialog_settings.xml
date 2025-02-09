@@ -13,8 +13,11 @@
 			<item value="[name]"/>
 		</list>
 	</section>
+<<<<<<< HEAD
 	<section name="org.eclipse.m2e.core.pom.overview">
 	</section>
 	<section name="org.eclipse.m2e.core.pom.dependencies">
 	</section>
+=======
+>>>>>>> ankush-branch
 </section>

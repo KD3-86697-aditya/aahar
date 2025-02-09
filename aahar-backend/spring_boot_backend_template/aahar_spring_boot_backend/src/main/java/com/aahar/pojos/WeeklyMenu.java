@@ -1,7 +1,9 @@
 package com.aahar.pojos;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -10,6 +12,8 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "weekly_menus")
+@AllArgsConstructor
+@NoArgsConstructor
 public class WeeklyMenu extends BaseEntity {
 
     @ManyToOne
@@ -21,7 +25,5 @@ public class WeeklyMenu extends BaseEntity {
     private DayOfWeek weekday ;
 
     // Enum for days of the week
-    public enum DayOfWeek {
-        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
-    }
+  
 }

@@ -2,6 +2,8 @@ package com.aahar.service;
 
 import java.util.Optional;
 
+import com.aahar.dtos.PasswordUpdateDto;
+import com.aahar.dtos.UpdateUserProfileDto;
 import com.aahar.pojos.User;
 
 public interface UserService {
@@ -17,4 +19,8 @@ public interface UserService {
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
     Optional<User> findMessOwnerById(Long userId);
+    
+	String updateUserProfile(UpdateUserProfileDto profileDto, String email);
+
+	public String updateUserPassword(PasswordUpdateDto passwordDto, String email);
 }
