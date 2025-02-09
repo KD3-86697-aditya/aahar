@@ -1,0 +1,9 @@
+package com.aahar.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.aahar.pojo.Mess;
+
+public interface MessDao extends JpaRepository<Mess, Long> {
+
+}

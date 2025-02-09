@@ -1,0 +1,15 @@
+package com.aahar.dao;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.aahar.pojo.Mess;
+
+public interface MessDao extends JpaRepository<Mess, Long> {
+    List<Mess> findByLocationCity(String city);
+    List<Mess> findByMealType(String mealType); // Assuming mealType is stored in Mess
+    List<Mess> findByMessNameContainingOrAddressContaining(String messName, String address);
+
+
+}

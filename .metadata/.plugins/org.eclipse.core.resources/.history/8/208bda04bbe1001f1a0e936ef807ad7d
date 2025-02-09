@@ -1,0 +1,9 @@
+package com.aahar.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.aahar.pojo.Location;
+
+public interface LocationsDao extends JpaRepository<Location, Long> {
+
+}

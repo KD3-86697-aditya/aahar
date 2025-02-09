@@ -1,0 +1,11 @@
+package com.aahar.service;
+
+import java.util.Optional;
+
+import com.aahar.dto.UpdateUserProfileDto;
+import com.aahar.pojos.User;
+
+public interface UserService {
+     String updateUserProfile(UpdateUserProfileDto profileDto, String email);
+    Optional<User> findByEmail(String email);
+}

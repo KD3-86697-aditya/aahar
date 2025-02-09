@@ -1,0 +1,24 @@
+package com.aahar.dao;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.aahar.pojo.Mess;
+
+public interface MessDao extends JpaRepository<Mess, Long> {
+	List<Mess> findByLocationCity(String city);
+
+	List<Mess> findByMenuItems_MealType(String mealType);
+
+	
+	//searching and filtering the mess based on the address or messname and mealType
+	
+	@Query("SELECT DISTINCT m FROM Mess m " + "LEFT JOIN m.menuItems mi "
+			+ "WHERE (LOWER(m.messName) LIKE LOWER(CONCAT('%', :searchText, '%')) OR LOWER(m.address) LIKE LOWER(CONCAT('%', :searchText, '%'))) "
+			+ "AND (:mealType IS NULL OR mi.mealType = :mealType)")
+	List<Mess> searchAndFilterMesses(@Param("query") String searchText, @Param("mealType") String mealType);
+	
+}

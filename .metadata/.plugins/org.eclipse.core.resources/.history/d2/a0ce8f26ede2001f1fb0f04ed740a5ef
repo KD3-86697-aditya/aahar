@@ -1,0 +1,33 @@
+package com.aahar.contoller;
+
+import java.security.Principal;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.aahar.dto.PasswordUpdateDto;
+import com.aahar.dto.UpdateUserProfileDto;
+import com.aahar.service.UserService;
+
+@RestController
+public class UserController {
+	
+	@Autowired
+	private UserService userService;
+	
+	@PutMapping("/profile")
+    public ResponseEntity<?> updateUserProfile(@RequestBody UpdateUserProfileDto profileDto, String email) {
+        String response = userService.updateUserProfile(profileDto, email);
+        return ResponseEntity.ok(response);
+    }
+	
+	   @PutMapping("/password")
+	    public ResponseEntity<?> updateUserPassword(@RequestBody PasswordUpdateDto passwordDto, String email) {
+	        String response = userService.updateUserPassword(passwordDto, email);
+	        return ResponseEntity.ok(response);
+	    }
+	
+}

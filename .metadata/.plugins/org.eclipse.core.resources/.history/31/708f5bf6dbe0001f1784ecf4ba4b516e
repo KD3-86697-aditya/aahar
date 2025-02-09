@@ -1,0 +1,6 @@
+package com.aahar.dto;
+
+public class PasswordUpdateDto {
+	 private String oldPassword;
+	    private String newPassword;
+}

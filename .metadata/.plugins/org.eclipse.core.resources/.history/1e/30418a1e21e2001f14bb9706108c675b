@@ -1,0 +1,5 @@
+package com.aahar.service;
+
+public interface SubscriptionPlan {
+	 public List<SubscriptionPlan> getSubscriptionPlansByMess(Long messId)
+}
