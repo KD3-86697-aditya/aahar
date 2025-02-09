@@ -1,0 +1,9 @@
+package com.aahar.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.aahar.pojo.UserSubscription;
+
+public interface UserSubscriptionDao extends JpaRepository<UserSubscription	, Long>{
+
+}

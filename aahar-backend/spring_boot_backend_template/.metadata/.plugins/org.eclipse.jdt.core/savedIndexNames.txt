@@ -1,0 +1,2 @@
+INDEX VERSION 1.134+F:\data\C-DAC\MyGitData\aahar\aahar-backend\spring_boot_backend_template\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
