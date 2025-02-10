@@ -1,5 +1,0 @@
-package com.aahar.daos;
-
-public interface OrderItemDao {
-
-}

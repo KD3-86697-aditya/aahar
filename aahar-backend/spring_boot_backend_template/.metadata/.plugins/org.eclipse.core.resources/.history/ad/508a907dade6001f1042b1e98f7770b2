@@ -1,9 +1,0 @@
-package com.aahar.service;
-
-import java.util.List;
-
-import com.aahar.pojos.SubscriptionPlan;
-
-public interface SubscriptionPlanService {
-	 public List<SubscriptionPlan> getSubscriptionPlansByMess(Long messId);
-}
