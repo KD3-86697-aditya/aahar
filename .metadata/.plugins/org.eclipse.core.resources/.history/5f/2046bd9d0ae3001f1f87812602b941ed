@@ -1,0 +1,18 @@
+package com.aahar.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.aahar.dao.UserSubscriptionDao;
+import com.aahar.pojo.UserSubscription;
+
+public class UserSubscriptionServiceImpl implements UserSubscriptionService {
+	
+	@Autowired
+	private UserSubscriptionDao userSubscriptionDao;
+
+	@Override
+	public UserSubscription subscribeToPlan(UserSubscription subscription) {
+		return userSubscriptionDao.save(subscription);
+	}
+
+}

@@ -1,0 +1,13 @@
+package com.aahar.service;
+
+import com.aahar.pojo.UserSubscription;
+
+public class UserSubscriptionServiceImpl implements UserSubscriptionService {
+
+	@Override
+	public UserSubscription subscribeToPlan(UserSubscription subscription) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
