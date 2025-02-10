@@ -1,0 +1,30 @@
+package com.aahar.controllers;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.aahar.dtos.MenuItemRespDTO;
+import com.aahar.service.MenuServiceImpl;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/api/menu")
+@RequiredArgsConstructor
+public class MenuController {
+
+    private final MenuServiceImpl menuService;
+
+    @GetMapping("/weekly/{messOwnerId}")
+    public ResponseEntity<List<MenuItemRespDTO>> getWeeklyMenu(@PathVariable Long messOwnerId) {
+        List<MenuItemRespDTO> menuItems = menuService.getWeeklyMenu(messOwnerId);
+        System.out.println("this is the query result");
+        menuItems.forEach(System.out::println);
+        return ResponseEntity.ok(menuItems);
+    }
+}

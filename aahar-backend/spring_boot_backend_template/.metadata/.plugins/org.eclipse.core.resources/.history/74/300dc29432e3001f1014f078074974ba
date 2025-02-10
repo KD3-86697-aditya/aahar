@@ -1,0 +1,9 @@
+package com.aahar.dtos;
+
+public class WeeklyMenuRequest {
+    private Long messId;
+    private String weekday;
+    private List<MenuItemRequest> menuItems;
+
+    // Getters and Setters
+}

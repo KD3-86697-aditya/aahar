@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.aahar.pojos.BaseEntity"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.CrossOrigin"/>
+    <fullyQualifiedTypeName name="com.aahar.service.WeeklyMenuService"/>
+    <fullyQualifiedTypeName name="com.aahar.pojos.WeeklyMenuItem"/>
+    <fullyQualifiedTypeName name="com.aahar.dtos.MenuItemRespDTO"/>
+    <fullyQualifiedTypeName name="com.aahar.service.MenuService"/>
+    <fullyQualifiedTypeName name="com.aahar.daos.DishDao"/>
+    <fullyQualifiedTypeName name="java.lang.StackWalker.Option"/>
+    <fullyQualifiedTypeName name="com.aahar.pojos.Dish"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="com.aahar.pojos.WeeklyMenu.DayOfWeek"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="org.modelmapper.ModelMapper"/>
+    <fullyQualifiedTypeName name="com.aahar.service.OrderService"/>
+    <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
+    <fullyQualifiedTypeName name="org.springframework.data.repository.query.Param"/>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="com.aahar.dtos.OrderResponseDTO"/>
+    <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
+    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
+    <fullyQualifiedTypeName name="com.aahar.pojos.OrderStatus"/>
+    <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.Query"/>
+    <fullyQualifiedTypeName name="java.lang.Long"/>
+    <fullyQualifiedTypeName name="java.util.HashMap"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="com.aahar.pojos.Location"/>
+    <fullyQualifiedTypeName name="lombok.Getter"/>
+    <fullyQualifiedTypeName name="lombok.Setter"/>
+    <fullyQualifiedTypeName name="com.aahar.daos.MessUpdateResponse"/>
+    <fullyQualifiedTypeName name="com.aahar.daos.MessDao"/>
+    <fullyQualifiedTypeName name="com.aahar.dtos.LocationDTO"/>
+    <fullyQualifiedTypeName name="com.aahar.daos.UserDao"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.EntityNotFoundException"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.aahar.dtos.MessReqDTO"/>
+    <fullyQualifiedTypeName name="com.aahar.dtos.ApiResponse"/>
+    <fullyQualifiedTypeName name="com.aahar.dtos.MessRespDTO"/>
+    <fullyQualifiedTypeName name="com.aahar.pojos.Mess"/>
+    <fullyQualifiedTypeName name="jakarta.transaction.Transactional"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+    <fullyQualifiedTypeName name="com.aahar.dtos.MessUpdateRequest"/>
+    <fullyQualifiedTypeName name="com.aahar.dtos.MenuItemUpdateRequest"/>
+    <fullyQualifiedTypeName name="com.aahar.dtos.MessUpdateResponse"/>
+</qualifiedTypeNameHistroy>

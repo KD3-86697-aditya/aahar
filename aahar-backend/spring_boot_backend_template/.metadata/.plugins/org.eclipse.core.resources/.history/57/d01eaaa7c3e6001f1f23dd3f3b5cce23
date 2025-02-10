@@ -1,0 +1,94 @@
+package com.aahar.service;
+
+import com.aahar.daos.OrderDao;
+import com.aahar.dtos.OrderResponseDTO;
+import com.aahar.dtos.OrderItemDTO;
+import com.aahar.pojos.Order;
+import com.aahar.pojos.OrderItem;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class OrderServiceImpl implements OrderService {
+
+    @Autowired
+    private OrderDao orderDao;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Override
+    public List<OrderResponseDTO> getAllOrdersForMessOwner(Long messOwnerId) {
+        List<Order> orders = orderDao.findAllOrdersByMessOwnerId(messOwnerId);
+
+        return orders.stream().map(order -> {
+            OrderResponseDTO dto = modelMapper.map(order, OrderResponseDTO.class);
+
+            dto.setOrderId(order.getId());
+            dto.setUserId(order.getUser().getId());
+            dto.setUsername(order.getUser().getUsername());
+            dto.setOrderStatus(order.getOrderStatus().name());
+            dto.setOrderPlacedAt(order.getOrderPlacedAt());
+
+            // ✅ Include price in OrderItemDTO
+            dto.setOrderItems(order.getOrderItems().stream().map(this::convertOrderItemToDto).collect(Collectors.toList()));
+
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OrderResponseDTO> getRecentOrdersForMessOwner(Long messOwnerId) {
+        LocalDateTime sevenDaysAgo = LocalDateTime.now().minusDays(7);
+
+        List<Order> orders = orderDao.findRecentOrdersByMessOwner(messOwnerId, sevenDaysAgo);
+
+        return orders.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    private OrderResponseDTO convertToDto(Order order) {
+        return new OrderResponseDTO(
+                order.getId(),
+                order.getUser().getId(),
+                order.getUser().getUsername(),
+                order.getOrderPlacedAt(),
+                order.getOrderStatus().name(),
+                order.getOrderItems().stream()
+                        .map(this::convertOrderItemToDto)
+                        .collect(Collectors.toList())
+        );
+    }
+
+    private OrderItemDTO convertOrderItemToDto(OrderItem orderItem) {
+        return new OrderItemDTO(
+                orderItem.getMenuItem().getId(),
+                orderItem.getMenuItem().getDish().getName(),
+                orderItem.getQuantity(),
+                orderItem.getMenuItem().getPrice() // ✅ Now including price
+        );
+    }
+
+	@Override
+	public OrderResponseDTO getOrderById(Long orderId) {
+	    return orderDao.findById(orderId)
+	            .map(order -> {
+	                OrderResponseDTO dto = new OrderResponseDTO(
+	                        order.getId(),
+	                        order.getUser().getId(),
+	                        order.getUser().getUsername(),
+	                        order.getOrderPlacedAt(),
+	                        order.getOrderStatus().name(), // ✅ Convert Enum to String
+	                        order.getOrderItems().stream()
+	                                .map(this::convertOrderItemToDto)
+	                                .collect(Collectors.toList())
+	                );
+	                return dto;
+	            })
+	            .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
+	}
+}

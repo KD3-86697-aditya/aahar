@@ -1,0 +1,19 @@
+package com.aahar.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.aahar.daos.MenuItemsDao;
+import com.aahar.dtos.ApiResponse;
+import com.aahar.dtos.MenuItemUpdateRequest;
+import com.aahar.pojos.Dish;
+import com.aahar.pojos.MenuItem;
+
+public class MenuItemServiceImpl implements MenuItemService {
+
+	@Autowired
+	MenuItemsDao menuItemsDao;
+	
+	@Autowired
+	Dish DishDao;
+	
+}

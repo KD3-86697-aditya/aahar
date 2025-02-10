@@ -1,0 +1,5 @@
+package com.aahar.daos;
+
+public interface DishDao implements  {
+
+}

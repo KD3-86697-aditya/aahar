@@ -1,0 +1,29 @@
+package com.aahar.dtos;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class OrderResponseDTO {
+    private Long orderId;
+    private Long userId;
+    private String username;
+    private LocalDateTime orderPlacedAt;
+    private String orderStatus;
+    private List<OrderItemDTO> orderItems;
+
+    public OrderResponseDTO(Long orderId, Long userId, String username, LocalDateTime orderPlacedAt, String orderStatus, List<OrderItemDTO> orderItems) {
+        this.orderId = orderId;
+        this.userId = userId;
+        this.username = username;
+        this.orderPlacedAt = orderPlacedAt;
+        this.orderStatus = orderStatus;
+        this.orderItems = orderItems;
+    }
+
+    // Getters & Setters
+}

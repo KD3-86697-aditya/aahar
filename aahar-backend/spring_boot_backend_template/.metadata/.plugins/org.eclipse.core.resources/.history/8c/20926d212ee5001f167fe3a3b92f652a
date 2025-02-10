@@ -1,0 +1,57 @@
+package com.aahar.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.aahar.daos.DishDao;
+import com.aahar.daos.MenuItemDao;
+import com.aahar.daos.MessDao;
+import com.aahar.dtos.ApiResponse;
+import com.aahar.dtos.MenuItemRespDTO;
+import com.aahar.dtos.MenuItemUpdateRequest;
+import com.aahar.pojos.Dish;
+import com.aahar.pojos.MenuItem;
+import com.aahar.pojos.Mess;
+
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
+public class MenuItemServiceImpl implements MenuItemService  {
+
+	@Autowired
+	MenuItemDao menuItemDao;
+	
+	@Autowired
+	DishDao dishDao;
+	
+	@Override
+	public ApiResponse updateMenuItem(Long menuItemId, MenuItemUpdateRequest request, Long messOwnerId) {
+	    // Find the menu item
+	    MenuItem menuItem = menuItemDao.findById(menuItemId)
+	            .orElseThrow(() -> new RuntimeException("Menu Item not found"));
+
+	    // Ensure that the Mess Owner owns this menu item
+	    if (!menuItem.getMess().getMessOwner().getId().equals(messOwnerId)) {
+	        return new ApiResponse("Unauthorized: You can only update your own menu items.");
+	    }
+
+	    // Update dish if provided
+	    if (request.getDishId() != null) {
+	        Dish newDish = dishDao.findById(request.getDishId())
+	                .orElseThrow(() -> new RuntimeException("Dish not found"));
+	        menuItem.setDish(newDish);
+	    }
+
+	    menuItem.setPrice(request.getPrice());
+	    menuItem.setIsAvailable(request.getAvailability());
+
+	    menuItemDao.save(menuItem);
+
+	    return new ApiResponse("Menu item updated successfully.");
+	}
+
+	
+}

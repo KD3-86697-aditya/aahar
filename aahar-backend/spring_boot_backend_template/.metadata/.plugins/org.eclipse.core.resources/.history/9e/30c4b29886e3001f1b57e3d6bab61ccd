@@ -1,0 +1,15 @@
+package com.aahar.service;
+
+import java.util.List;
+
+import com.aahar.dtos.ApiResponse;
+import com.aahar.dtos.MenuItemRespDTO;
+import com.aahar.dtos.MenuItemUpdateRequest;
+
+public interface MenuItemService {
+
+	public ApiResponse updateMenuItem(Long menuItemId, MenuItemUpdateRequest request, Long messOwnerId) ;
+
+//	 public List<MenuItemRespDTO> getWeeklyMenu(Long messOwnerId);
+	
+}

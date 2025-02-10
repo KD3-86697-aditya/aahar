@@ -1,0 +1,6 @@
+package com.aahar.daos;
+
+@Repository
+public interface WeeklyMenuDao extends JpaRepository<WeeklyMenus, Long> {
+    WeeklyMenus findByMessIdAndWeekday(Long messId, String weekday);
+}

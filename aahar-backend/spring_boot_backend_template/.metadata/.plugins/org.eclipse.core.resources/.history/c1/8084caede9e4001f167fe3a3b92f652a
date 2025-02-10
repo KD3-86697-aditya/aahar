@@ -1,0 +1,21 @@
+package com.aahar.daos;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.aahar.pojos.WeeklyMenu;
+import com.aahar.pojos.WeeklyMenuItem;
+
+@Repository
+public interface WeeklyMenuItemsDao extends JpaRepository<WeeklyMenuItem, Long> {
+	
+    List<WeeklyMenuItem> findByWeeklyMenu(WeeklyMenu weeklyMenu);
+    
+     List<WeeklyMenuItem> findByMessOwnerId(Long messOwnerId);
+    
+    // Fetch all menu items for a specific day
+    List<WeeklyMenuItem> findByDayOfWeek(String dayOfWeek);
+
+}

@@ -1,0 +1,22 @@
+package com.aahar.dtos;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class OrderItemDTO {
+    private Long menuItemId;
+    private String dishName;
+    private int quantity;
+
+    public OrderItemDTO(Long menuItemId, String dishName, int quantity) {
+        this.menuItemId = menuItemId;
+        this.dishName = dishName;
+        this.quantity = quantity;
+    }
+
+    // Getters & Setters
+}

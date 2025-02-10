@@ -1,0 +1,11 @@
+package com.aahar.service;
+
+import com.aahar.dtos.ApiResponse;
+import com.aahar.dtos.MenuItemUpdateRequest;
+
+public interface MenuItemService {
+
+	public ApiResponse updateMenuItem(Long menuItemId, MenuItemUpdateRequest request) ;
+
+	
+}

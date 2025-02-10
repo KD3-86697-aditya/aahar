@@ -1,0 +1,16 @@
+package com.aahar.daos;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.aahar.pojos.Dish;
+import java.util.List;
+import java.util.Optional;
+
+
+public interface DishDao extends JpaRepository<Dish, Long>  {
+	
+	
+	Optional<List<Dish>> findByName(String name);
+
+
+}

@@ -1,0 +1,21 @@
+package com.aahar.controllers;
+
+import com.aahar.dtos.OrderResponseDTO;
+import com.aahar.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/orders")
+public class OrderController {
+
+    @Autowired
+    private OrderService orderService;
+
+    @GetMapping("/mess-owner/{messOwnerId}")
+    public List<OrderResponseDTO> getAllOrders(@PathVariable Long messOwnerId) {
+        return orderService.getAllOrdersForMessOwner(messOwnerId);
+    }
+}

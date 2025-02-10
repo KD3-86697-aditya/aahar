@@ -1,0 +1,29 @@
+package com.aahar.controllers;
+
+import com.aahar.dtos.OrderResponseDTO;
+import com.aahar.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/orders")
+@CrossOrigin(origins = "*")
+public class OrderController {
+
+    @Autowired
+    private OrderService orderService;
+
+    // ✅ Get all orders for a mess owner
+    @GetMapping("/mess/{messOwnerId}")
+    public List<OrderResponseDTO> getAllOrdersForMessOwner(@PathVariable Long messOwnerId) {
+        return orderService.getAllOrdersForMessOwner(messOwnerId);
+    }
+
+    // ✅ Get recent orders (last 7 days) with PENDING orders prioritized
+    @GetMapping("/mess/{messOwnerId}/recent")
+    public List<OrderResponseDTO> getRecentOrdersForMessOwner(@PathVariable Long messOwnerId) {
+        return orderService.getRecentOrdersForMessOwner(messOwnerId);
+    }
+}

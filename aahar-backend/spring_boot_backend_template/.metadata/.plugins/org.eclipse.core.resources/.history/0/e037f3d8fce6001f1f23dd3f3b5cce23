@@ -1,0 +1,28 @@
+package com.aahar.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.aahar.dtos.ApiResponse;
+import com.aahar.dtos.MessReqDTO;
+import com.aahar.dtos.MessRespDTO;
+import com.aahar.pojos.Mess;
+
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
+public interface MessService {
+	
+ApiResponse addMess(MessReqDTO mess);
+
+ApiResponse updateMess(Long MesId,MessReqDTO mess);
+
+List<MessRespDTO> getAllMesses();
+
+ApiResponse  deleteMess(Long MessId);
+
+public Mess getMessDetails(Long messId); {}
+
+}

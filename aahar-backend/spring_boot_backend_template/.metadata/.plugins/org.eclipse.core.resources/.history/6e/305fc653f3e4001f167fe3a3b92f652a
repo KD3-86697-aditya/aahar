@@ -1,0 +1,12 @@
+package com.aahar.service;
+
+import java.util.List;
+
+import com.aahar.dtos.MenuItemRespDTO;
+
+public interface MenuService {
+	public List<MenuItemRespDTO> getWeeklyMenu(Long messOwnerId);
+	
+	public MenuItemRespDTO addMenuItem(Long messOwnerId, String dishName, double price, String dayOfWeek);
+
+}

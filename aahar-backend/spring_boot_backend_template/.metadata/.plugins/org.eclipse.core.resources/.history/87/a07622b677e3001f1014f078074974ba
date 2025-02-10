@@ -1,0 +1,5 @@
+package com.aahar.dtos;
+
+public class MenuItemUpdateRequest {
+
+}

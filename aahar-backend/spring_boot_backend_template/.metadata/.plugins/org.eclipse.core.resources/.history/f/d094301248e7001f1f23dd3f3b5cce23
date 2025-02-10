@@ -1,0 +1,28 @@
+package com.aahar.daos;
+
+import com.aahar.dtos.LocationDTO;
+import com.aahar.pojos.Mess;
+import lombok.Data;
+
+@Data
+public class MessUpdateResponse {
+    private Long id;
+    private String messName;
+    private String firstName;
+    private String lastName;
+    private String ownerPhone;
+    private String ownerEmail;
+    private String address;
+    private LocationDTO location;  // ✅ Use DTO instead of entity
+
+    public MessUpdateResponse(Mess mess) {
+        this.id = mess.getId();
+        this.messName = mess.getMessName();
+        this.firstName = mess.getMessOwner().getFirstName();
+        this.lastName = mess.getMessOwner().getLastName();
+        this.ownerPhone = mess.getMessOwner().getPhoneNumber();
+        this.ownerEmail = mess.getMessOwner().getEmail();
+        this.address = mess.getAddress();
+        this.location = new LocationDTO(mess.getLocation()); 
+    }
+}

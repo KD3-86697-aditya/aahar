@@ -1,0 +1,62 @@
+package com.aahar.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.aahar.daos.MenuItemDao;
+import com.aahar.daos.MessDao;
+import com.aahar.daos.WeeklyMenuDao;
+import com.aahar.daos.WeeklyMenuItemsDao;
+import com.aahar.dtos.MenuItemRespDTO;
+import com.aahar.pojos.MenuItem;
+import com.aahar.pojos.Mess;
+import com.aahar.pojos.WeeklyMenu;
+import com.aahar.pojos.WeeklyMenuItem;
+
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class MenuService {
+    private final MenuItemDao menuItemDao;
+    private final MessDao messDao;
+    private final WeeklyMenuDao weeklyMenuDao;
+    private final WeeklyMenuItemsDao weeklyMenuItemsDao;
+
+    public List<MenuItemRespDTO> getWeeklyMenu(Long messOwnerId) {
+        // Get the mess for the given messOwnerId
+        Mess mess = messDao.findByMessOwnerId(messOwnerId)
+                .orElseThrow(() -> new RuntimeException("Mess not found for owner"));
+
+        // Fetch all WeeklyMenus for the given Mess
+        List<WeeklyMenu> weeklyMenus = weeklyMenuDao.findByMessId(mess.getId());
+
+        // Now, for each WeeklyMenu, fetch the corresponding WeeklyMenuItems
+        List<MenuItemResponse> responses = new ArrayList<>();
+
+        for (WeeklyMenu weeklyMenu : weeklyMenus) {
+            List<WeeklyMenuItem> weeklyMenuItems = weeklyMenuItemsDao.findByWeeklyMenu(weeklyMenu);
+            for (WeeklyMenuItem weeklyMenuItem : weeklyMenuItems) {
+                responses.add(mapToMenuItemResponse(weeklyMenuItem));
+            }
+        }
+
+        return responses;
+    }
+
+    // Map WeeklyMenuItems to MenuItemResponse
+    private MenuItemRespDTO mapToMenuItemResponse(WeeklyMenuItem weeklyMenuItem) {
+        MenuItem item = weeklyMenuItem.getMenuItem();
+
+        return new MenuItemRespDTO(
+                item.getId(),
+                weeklyMenuItem.getWeeklyMenu().getDayOfWeek().name(),
+                item.getDish().getName(),
+                item.getPrice(),
+                item.getIsAvailable()
+        );
+    }
+}

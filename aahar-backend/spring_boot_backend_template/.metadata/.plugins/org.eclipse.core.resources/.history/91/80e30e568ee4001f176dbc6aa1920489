@@ -1,0 +1,9 @@
+package com.aahar.daos;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.aahar.pojos.Dish;
+
+public interface DishDao extends JpaRepository<Dish, Long>  {
+
+}

@@ -1,0 +1,55 @@
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.aahar.daos.MenuItemDao;
+import com.aahar.daos.WeeklyMenuDao;
+import com.aahar.daos.WeeklyMenuItemsDao;
+import com.aahar.dtos.MenuItemReqDTO;
+import com.aahar.dtos.WeeklyMenuReqDTO;
+import com.aahar.pojos.MenuItem;
+import com.aahar.pojos.WeeklyMenu;
+import com.aahar.pojos.WeeklyMenuItem;
+
+@Service
+public class WeeklyMenuService {
+
+    @Autowired
+    private WeeklyMenuDao weeklyMenuDao;
+
+    @Autowired
+    private WeeklyMenuItemsDao weeklyMenuItemsDao;
+
+    @Autowired
+    private MenuItemDao menuItemsDao;
+
+    public void scheduleWeeklyMenu(WeeklyMenuReqDTO request) {
+        // Check if Weekly Menu for this mess and day already exists
+        WeeklyMenu weeklyMenu = weeklyMenuDao.findByMessIdAndWeekday(request.getMessId(), request.getWeekday());
+
+        if (weeklyMenu == null) {
+            // Create new Weekly Menu entry
+            weeklyMenu = new WeeklyMenu();
+            weeklyMenu.setMessId(request.getMessId());
+            weeklyMenu.setWeekday(request.getWeekday());
+            weeklyMenu = weeklyMenuDao.save(weeklyMenu);
+        }
+
+        // Clear existing Weekly Menu Items
+        weeklyMenuItemsDao.deleteByWeeklyMenuId(weeklyMenu.getId());
+
+        // Add new menu items
+        for (MenuItemReqDTO item : request.getMenuItems()) {
+            MenuItem menuItem = new MenuItem();
+            menuItem.setDishId(item.getDishId());
+            menuItem.setPrice(item.getPrice());
+            menuItem.setMealType(item.getMealType());
+            menuItem.setAvailability(item.getAvailability());
+            menuItem = menuItemsDao.save(menuItem);
+
+            WeeklyMenuItem weeklyMenuItem = new WeeklyMenuItems();
+            weeklyMenuItem.setWeeklyMenu(weeklyMenu);
+            weeklyMenuItem.setMenuItem(menuItem);
+            weeklyMenuItemsDao.save(weeklyMenuItem);
+        }
+    }
+}

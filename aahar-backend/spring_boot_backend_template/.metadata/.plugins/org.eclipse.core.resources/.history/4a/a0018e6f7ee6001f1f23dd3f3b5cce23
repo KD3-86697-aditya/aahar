@@ -1,0 +1,41 @@
+package com.aahar.service;
+
+import com.aahar.daos.OrderDao;
+import com.aahar.dtos.OrderResponseDTO;
+import com.aahar.dtos.OrderItemDTO;
+import com.aahar.pojos.Order;
+import com.aahar.pojos.OrderItem;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class OrderServiceImpl implements OrderService {
+
+    @Autowired
+    private OrderDao orderDao;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Transactional
+    public List<OrderResponseDTO> getAllOrdersForMessOwner(Long messOwnerId) {
+        List<Order> orders = orderDao.findAllOrdersByMessOwnerId(messOwnerId);
+
+        return orders.stream().map(order -> {
+            OrderResponseDTO orderDTO = modelMapper.map(order, OrderResponseDTO.class);
+            
+            // Map OrderItems manually (because List<OrderItem> may not be auto-mapped correctly)
+            List<OrderItemDTO> orderItems = order.getOrderItems().stream().map(item -> 
+                modelMapper.map(item, OrderItemDTO.class)
+            ).collect(Collectors.toList());
+
+            orderDTO.setOrderItems(orderItems);
+            return orderDTO;
+        }).collect(Collectors.toList());
+    }
+}

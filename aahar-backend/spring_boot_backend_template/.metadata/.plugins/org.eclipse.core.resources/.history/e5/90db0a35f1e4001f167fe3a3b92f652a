@@ -1,0 +1,32 @@
+package com.aahar.controllers;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.aahar.pojos.WeeklyMenuItem;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/menu")
+public class WeeklyMenuController {
+
+    @Autowired
+    private com.aahar.service.WeeklyMenuService weeklyMenuService;
+
+    // Endpoint to add a menu item
+    @PostMapping("/add")
+    public ResponseEntity<WeeklyMenuItem> addMenuItem(@RequestBody WeeklyMenuItem menuItem) {
+        WeeklyMenuItem savedItem = weeklyMenuService.addMenuItem(menuItem);
+        return ResponseEntity.ok(savedItem);
+    }
+
+    // Endpoint to get menu items by mess owner ID
+    @GetMapping("/mess/{messOwnerId}")
+    public ResponseEntity<List<WeeklyMenuItem>> getMenuByMessOwner(@PathVariable Long messOwnerId) {
+        List<WeeklyMenuItem> menuItems = weeklyMenuService.getMenuByMessOwner(messOwnerId);
+        return ResponseEntity.ok(menuItems);
+    }
+}
