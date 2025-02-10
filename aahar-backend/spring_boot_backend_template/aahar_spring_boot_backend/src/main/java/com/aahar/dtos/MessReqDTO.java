@@ -18,6 +18,6 @@ public class MessReqDTO {
         private String description;
 	    private String contactNumber;
 	    private String openingHours;
-	    private Long messOwnerId;
+	    private Long messOwnerId;  
 	    
 }

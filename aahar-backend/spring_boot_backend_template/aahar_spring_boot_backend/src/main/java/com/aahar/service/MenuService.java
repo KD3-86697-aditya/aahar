@@ -2,8 +2,10 @@ package com.aahar.service;
 
 import java.util.List;
 
+import com.aahar.dtos.MenuItemReqDTO;
 import com.aahar.dtos.MenuItemRespDTO;
 import com.aahar.dtos.MenuItemUpdateRequest;
+import com.aahar.dtos.NutritionalInfoDTO;
 import com.aahar.pojos.MenuItem;
 import com.aahar.pojos.MenuItem.MealType;
 import com.aahar.pojos.WeeklyMenu;
@@ -18,6 +20,8 @@ public interface MenuService {
     
 //    public boolean deleteMenuItem(Long menuItemId);
     public boolean deleteMenuItem(Long menuItemId);
+    
+
 
 
 }

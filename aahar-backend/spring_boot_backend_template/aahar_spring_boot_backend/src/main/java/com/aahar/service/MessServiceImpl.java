@@ -12,16 +12,22 @@ import com.aahar.custom_exceptions.ResourceNotFoundException;
 import com.aahar.daos.LocationDao;
 import com.aahar.daos.MessDao;
 import com.aahar.daos.UserDao;
+
 import com.aahar.dtos.ApiResponse;
 import com.aahar.dtos.LocationDTO;
+import com.aahar.dtos.MenuItemRespDTO;
 import com.aahar.dtos.MessReqDTO;
 import com.aahar.dtos.MessRespDTO;
-import com.aahar.dtos.UserDTO;
+import com.aahar.dtos.MessUpdateRequest;
+import com.aahar.dtos.MessUpdateResponse;
+
 import com.aahar.pojos.Location;
+import com.aahar.pojos.MenuItem;
 import com.aahar.pojos.Mess;
 import com.aahar.pojos.User;
 import com.aahar.pojos.UserRole;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -102,7 +108,6 @@ public class MessServiceImpl implements MessService {
 	    return new ApiResponse("Mess updated successfully");
 	}
 
-
 	@Override
 	public List<MessRespDTO> getAllMesses() {
 		
@@ -118,7 +123,6 @@ public class MessServiceImpl implements MessService {
 		}).collect(Collectors.toList());
 	}
 
-
 	@Override
 	public ApiResponse deleteMess(Long messId) {
 		
@@ -129,4 +133,93 @@ public class MessServiceImpl implements MessService {
 	    return new ApiResponse("Mess deleted succesfully");
 	    
 	}
+
+
+	@Override
+	public Mess getMessDetails(Long messId){
+	    return messDao.findMessWithOwnerDetails(messId);
+	}
+	
+//	@Override
+//    public MessUpdateResponse updateMessDetails(Long messId, MessUpdateRequest request) {
+//        Mess mess = messDao.findById(messId)
+//                .orElseThrow(() -> new EntityNotFoundException("Mess not found with ID: " + messId));
+//
+//        // Update mess details
+//        mess.setMessName(request.getMessName());
+////        mess.setAddress(request.getAddress());
+//        mess.getLocation().setCity(request.getLocation().getCity());
+//        mess.getLocation().setState(request.getLocation().getState());
+//        mess.getLocation().setPincode(request.getLocation().getPincode());
+//
+//        // Update mess owner details
+//        User owner = mess.getMessOwner();
+//        owner.setFirstName(request.getFirstName());
+//        owner.setLastName(request.getLastName());
+//        owner.setPhoneNumber(request.getOwnerPhone());
+//        owner.setEmail(request.getOwnerEmail());
+//        
+//        // Save updated details
+//        messDao.save(mess);
+//        userDao.save(owner);
+//        
+//        return new MessUpdateResponse(mess);
+//    }
+	
+	
+	@Override
+	public Mess updateMessDetails(Long messId, MessUpdateRequest request) {
+	    Mess mess = messDao.findById(messId)
+	            .orElseThrow(() -> new EntityNotFoundException("Mess not found with ID: " + messId));
+
+	    // Update mess details
+	    mess.setMessName(request.getMessName());
+//	    mess.setAddress(request.getAddress()); // Uncomment if needed
+
+	    if (mess.getLocation() != null && request.getLocation() != null) {
+	        mess.getLocation().setCity(request.getLocation().getCity());
+	        mess.getLocation().setState(request.getLocation().getState());
+	        mess.getLocation().setPincode(request.getLocation().getPincode());
+	    }
+
+	    // Update mess owner details
+	    User owner = mess.getMessOwner();
+	    owner.setFirstName(request.getFirstName());
+	    owner.setLastName(request.getLastName());
+	    owner.setPhoneNumber(request.getOwnerPhone());
+	    owner.setEmail(request.getOwnerEmail());
+
+	    // Save updated details
+	    messDao.save(mess);
+	    userDao.save(owner);
+
+	    return mess;  // Return updated mess instead of custom response
+	}
+
+
+	@Override
+	public List<MessRespDTO> getMessesByCity(String city) {
+		List<Mess> messList =  messDao.findByLocationCity(city);
+		return messList.stream().map(mess-> mapper.map(mess, MessRespDTO.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<MessRespDTO> searchMesses(String query) {
+		List<Mess> messList= messDao.findByMessNameContainingOrAddressContaining(query, query);
+		return messList.stream().map(mess-> mapper.map(mess, MessRespDTO.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public MessRespDTO getMessDetailsForUser(Long messId) {
+		Mess mess = messDao.findById(messId).orElseThrow(() -> new RuntimeException("Mess Not Found"));
+		return mapper.map(mess, MessRespDTO.class);
+	}
+	
+	 public List<MenuItemRespDTO> getMenuItems(Long messId) {
+	        List<MenuItem> menuList = messDao.findMenuItemsByMessId(messId);
+	        return menuList.stream().map(menu -> mapper.map(menu, MenuItemRespDTO.class)).collect(Collectors.toList());
+	    }
+
+	
+	
 }

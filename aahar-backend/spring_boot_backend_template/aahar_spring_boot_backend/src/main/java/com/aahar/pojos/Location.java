@@ -22,5 +22,9 @@ public class Location extends BaseEntity {
 
     @Column(name = "pincode", length = 10)
     private String pincode;
+    
+    public void setPincode(String pincode) {
+        this.pincode = (pincode != null) ? pincode.trim() : null;
+    }
 
 }

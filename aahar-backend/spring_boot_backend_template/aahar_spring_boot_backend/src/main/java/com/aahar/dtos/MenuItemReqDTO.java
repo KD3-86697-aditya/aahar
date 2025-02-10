@@ -9,6 +9,7 @@ public class MenuItemReqDTO {
     private Long dishId;
     private Double price;
     private String mealType;
+    private String dayOfWeek;
     private Boolean availability;
 
 }

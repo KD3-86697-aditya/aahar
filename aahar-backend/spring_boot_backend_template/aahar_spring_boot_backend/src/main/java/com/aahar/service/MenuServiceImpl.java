@@ -12,14 +12,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 import com.aahar.daos.DishDao;
 import com.aahar.daos.MenuItemDao;
 import com.aahar.daos.MessDao;
+import com.aahar.daos.NutritionalInfoDao;
 import com.aahar.daos.WeeklyMenuDao;
 import com.aahar.daos.WeeklyMenuItemsDao;
+import com.aahar.dtos.MenuItemReqDTO;
 import com.aahar.dtos.MenuItemRespDTO;
 import com.aahar.dtos.MenuItemUpdateRequest;
+import com.aahar.dtos.MessUpdateRequest;
+import com.aahar.dtos.NutritionalInfoDTO;
 import com.aahar.pojos.Dish;
 import com.aahar.pojos.MenuItem;
 import com.aahar.pojos.MenuItem.MealType;
 import com.aahar.pojos.Mess;
+import com.aahar.pojos.NutritionalInfo;
 import com.aahar.pojos.WeeklyMenu;
 import com.aahar.pojos.WeeklyMenu.DayOfWeek;
 import com.aahar.pojos.WeeklyMenuItem;
@@ -45,6 +50,9 @@ public class MenuServiceImpl implements MenuService{
 	
 	@Autowired
 	private DishDao dishDao;
+	
+	@Autowired
+	private NutritionalInfoDao NutritionalInfoDao;
 
     public List<MenuItemRespDTO> getWeeklyMenu(Long messOwnerId) {
         // Get the mess for the given messOwnerId
@@ -151,7 +159,6 @@ public class MenuServiceImpl implements MenuService{
         }
     }
     
-    
     @Override
     public boolean deleteMenuItem(Long menuItemId) {
         Optional<MenuItem> menuItemOpt = menuItemDao.findById(menuItemId);
@@ -171,8 +178,7 @@ public class MenuServiceImpl implements MenuService{
         return true;
     }
 
+   
 
-
-    
 
 }

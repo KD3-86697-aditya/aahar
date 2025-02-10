@@ -34,3 +34,16 @@ public class MenuItem extends BaseEntity {
         BREAKFAST, LUNCH, DINNER
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

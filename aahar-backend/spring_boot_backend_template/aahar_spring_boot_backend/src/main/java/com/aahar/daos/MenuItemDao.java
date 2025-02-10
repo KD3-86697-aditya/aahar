@@ -9,5 +9,7 @@ import com.aahar.pojos.MenuItem;
 
 @Repository
 public interface MenuItemDao extends JpaRepository<MenuItem, Long> {
+	
     List<MenuItem> findByMessId(Long messId);
+    
 }	
