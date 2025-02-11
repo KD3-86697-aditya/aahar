@@ -1,0 +1,97 @@
+/* Main login page container */
+.login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f8f9fa; /* Light gray background */
+  }
+  
+  /* Logo container */
+  .logo-container {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+  }
+  
+  /* Logo styling */
+  .logo {
+    width: 300px;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  /* Button wrapper to center each button */
+  .button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem; /* Spacing between buttons */
+    width: 100%;
+  }
+  
+  /* Universal button styles */
+  button {
+    font-size: 1.2em;
+    width: 200px;
+    height: 200px; /* Square shape */
+    border-radius: 1em; /* Rounded corners */
+    border: none;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+  }
+  
+  /* Hover effect for buttons */
+  button:hover {
+    background-color: #333;
+    box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.7);
+    transform: scale(1.05);
+  }
+  
+  /* Focus effect for accessibility */
+  button:focus {
+    outline: 2px solid #03a9f4;
+    outline-offset: 2px;
+  }
+  
+  /* Outer container for the glowing effect */
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.0em;
+    background: linear-gradient(90deg, #03a9f4, #f441a5);
+    border-radius: 1em;
+    position: relative;
+    overflow: hidden;
+    width: fit-content;
+    transition: all 0.4s ease;
+  }
+  
+  /* Glow effect on hover */
+  .container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #03a9f4, #f441a5);
+    filter: blur(1em);
+    opacity: 0.6;
+    transition: opacity 0.4s ease, filter 0.4s ease;
+  }
+  
+  .container:hover::before {
+    filter: blur(1.5em);
+    opacity: 1;
+  }
+  
+  .container:active::before {
+    filter: blur(0.5em);
+    opacity: 0.8;
+  }
+  

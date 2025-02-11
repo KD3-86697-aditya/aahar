@@ -1,0 +1,53 @@
+.manage-location {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .title {
+    background-color: #d2b4fc;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .location-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .location-form input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .add-button {
+    background-color: #ff5f5f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .location-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .location-table th, .location-table td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .delete-button {
+    background-color: #ff5f5f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  

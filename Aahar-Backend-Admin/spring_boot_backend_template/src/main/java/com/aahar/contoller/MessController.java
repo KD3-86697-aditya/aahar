@@ -1,38 +1,36 @@
 package com.aahar.contoller;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.aahar.dtos.MessDTO;
-import com.aahar.entity.Mess;
 import com.aahar.service.MessService;
 
 @RestController
 @RequestMapping("/mess")
+@CrossOrigin(origins = "http://localhost:3000") // Allow frontend access
 public class MessController {
-    @Autowired
-    private MessService messService;
+    private final MessService messService;
+
+    public MessController(MessService messService) {
+        this.messService = messService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MessDTO>> getAllMesses() {
+        try {
+            List<MessDTO> messes = messService.getAllMesses();
+            return ResponseEntity.ok(messes);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
     
-    @GetMapping("/by-location/{locationId}")
-    public List<MessDTO> getMessesByLocation(@PathVariable Long locationId) {
-        List<Mess> messes = messService.getMessesByLocation(locationId);
-        
-        return messes.stream().map(mess -> {
-            MessDTO dto = new MessDTO();
-            dto.setMessName(mess.getMessName());
-            dto.setAddress(mess.getAddress());
-            dto.setLocationId(mess.getLocation().getId());
-            dto.setDescription(mess.getDescription());
-            dto.setContactNumber(mess.getContactNumber());
-            dto.setOpeningHours(mess.getOpeningHours());
-            dto.setMessOwnerId(mess.getMessOwner().getId());
-            return dto;
-        }).toList();
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteMess(@PathVariable Long id) {
+        messService.deleteMess(id);
+        return ResponseEntity.ok("Mess deleted successfully!");
     }
 
 }

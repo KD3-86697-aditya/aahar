@@ -1,11 +1,8 @@
 package com.aahar.daos;
 
-import java.util.List;
-
+import com.aahar.entity.Mess;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.aahar.entity.Mess;
-
 public interface MessRepository extends JpaRepository<Mess, Long> {
-    List<Mess> findByLocationId(Long locationId);
+    // No extra query needed, findAll() is built-in
 }

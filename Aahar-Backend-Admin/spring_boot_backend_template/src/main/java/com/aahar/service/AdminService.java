@@ -1,6 +1,8 @@
 package com.aahar.service;
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -17,16 +19,22 @@ public class AdminService {
     private AdminRepository adminRepository;
     
     
-    public String login(AdminLoginDTO loginDTO) {
-    	Admin admin = adminRepository.findByAdminname(loginDTO.getAdminname())
-                .orElseThrow(() -> new AdminNotFoundException("Admin not found"));
-            
-            if (!loginDTO.getPassword().equals(admin.getPassword())) {
-                throw new AdminNotFoundException("Invalid credentials");
-            }
-            
-            return "Login successful";
+	public String login(AdminLoginDTO loginDTO) {
+        Optional<Admin> adminOptional = adminRepository.findByAdminname(loginDTO.getAdminname());
+
+        if (adminOptional.isEmpty()) {
+            return "Admin not found";
+        }
+
+        Admin admin = adminOptional.get();
+
+        if (admin.getPassword().equals(loginDTO.getPassword())) {
+            return "Login Successful";
+        } else {
+            return "Invalid Credentials";
+        }
     }
+
     
     public String addAdmin(AdminCreateDTO adminDTO, String currentAdminname) {
         if (!adminRepository.existsByAdminname(currentAdminname)) {

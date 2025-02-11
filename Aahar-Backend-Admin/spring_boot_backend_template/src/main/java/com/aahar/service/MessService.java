@@ -1,19 +1,33 @@
 package com.aahar.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.aahar.daos.MessRepository;
+import com.aahar.dtos.MessDTO;
 import com.aahar.entity.Mess;
+
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MessService {
-    @Autowired
-    private MessRepository messRepository;
-    
-    public List<Mess> getMessesByLocation(Long locationId) {
-        return messRepository.findByLocationId(locationId);
+    private final MessRepository messRepository;
+
+    public MessService(MessRepository messRepository) {
+        this.messRepository = messRepository;
     }
+
+    public List<MessDTO> getAllMesses() {
+        List<Mess> messes = messRepository.findAll();
+        return messes.stream().map(mess -> new MessDTO(
+                mess.getMessName(), mess.getAddress(), mess.getLocation().getId(),
+                mess.getDescription(), mess.getContactNumber(), mess.getOpeningHours(),
+                mess.getMessOwner().getId()
+        )).collect(Collectors.toList());
+    }
+    
+    public void deleteMess(Long messId) {
+        messRepository.deleteById(messId);
+    }
+
+
 }

@@ -2,35 +2,33 @@ package com.aahar.contoller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.aahar.dtos.MenuItemDTO;
-import com.aahar.entity.MenuItem;
 import com.aahar.service.MenuItemService;
 
 @RestController
 @RequestMapping("/menu")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MenuItemController {
-    @Autowired
-    private MenuItemService menuItemService;
-    
-    @GetMapping("/by-mess/{messId}")
-    public List<MenuItemDTO> getMenuItemsByMess(@PathVariable Long messId) {
-        List<MenuItem> menuItems = menuItemService.getMenuItemsByMess(messId);
+    private final MenuItemService menuItemService;
 
-        return menuItems.stream().map(menuItem -> {
-            MenuItemDTO dto = new MenuItemDTO();
-            dto.setMessId(menuItem.getMess().getId());
-            dto.setDishName(menuItem.getDishName());
-            dto.setPrice(menuItem.getPrice());
-            dto.setIsAvailable(menuItem.getIsAvailable());
-            dto.setMealType(menuItem.getMealType().name());
-            return dto;
-        }).toList();
+    public MenuItemController(MenuItemService menuItemService) {
+        this.menuItemService = menuItemService;
+    }
+
+    @GetMapping("/by-mess/{messId}")
+    public ResponseEntity<?> getMenuItemsByMess(@PathVariable Long messId) {
+        try {
+            List<MenuItemDTO> menuItems = menuItemService.getMenuItemsByMess(messId);
+            return ResponseEntity.ok(menuItems);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("An unexpected error occurred.");
+        }
     }
 
 }

@@ -1,38 +1,51 @@
 package com.aahar.contoller;
 
-import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+
+
 
 import com.aahar.dtos.LocationDTO;
 import com.aahar.entity.Location;
 import com.aahar.service.LocationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/locations")
+@RequestMapping("/location")
+@CrossOrigin(origins = "http://localhost:3000") // Enable CORS
 public class LocationController {
+
     @Autowired
     private LocationService locationService;
-    
+
+    // Add a new location
     @PostMapping("/add")
-    public String addLocation(@RequestBody LocationDTO locationDTO) {
-        return locationService.addLocation(locationDTO);
+    public ResponseEntity<String> addLocation(@RequestBody LocationDTO locationDTO) {
+        String result = locationService.addLocation(locationDTO);
+        return ResponseEntity.ok(result);
     }
-    
-    @DeleteMapping("/delete/{id}")
-    public String deleteLocation(@PathVariable Long id) {
-        return locationService.deleteLocation(id);
-    }
-    
+
+    // Get all locations
     @GetMapping("/all")
-    public List<Location> getAllLocations() {
-        return locationService.getAllLocations();
+    public ResponseEntity<List<Location>> getAllLocations() {
+        List<Location> locations = locationService.getAllLocations();
+        return ResponseEntity.ok(locations);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteLocation(@PathVariable Long id) {
+        boolean isDeleted = locationService.deleteLocation(id);
+        if (isDeleted) {
+            return ResponseEntity.ok("Location deleted successfully!");
+        } else {
+            return ResponseEntity.status(404).body("Location not found!");
+        }
+    }
+
 }
+
+

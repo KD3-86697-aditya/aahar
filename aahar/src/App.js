@@ -1,25 +1,59 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { AboutUs, FindUs, Header, Intro } from "./container";
+import { Navbar, Login, AdminLoginPage, MessOwnerLoginPage, UserLoginPage, Dashboard  , ManageStaff , ManageLocation ,ManageUser ,ManageOrders , ManageMessList , ManageMessDetails} from "./components";
 import "./App.css";
-import Login from "./screens/user_screens/Login";
-import Registration from "./screens/user_screens/Registration";
-import Home from "./screens/user_screens/Home";
-import FoodVendor from "./screens/user_screens/FoodVendor";
-import Contact from "./screens/user_screens/Contact";
 
-function App() {
+const ProtectedRoute = ({ children }) => {
+  const navigate = useNavigate();
+  const isAdminAuthenticated = localStorage.getItem("isAdminAuthenticated");
+
+  if (!isAdminAuthenticated) {
+    navigate("/AdminLogin"); // Redirect if not logged in
+    return null;
+  }
+
+  return children;
+};
+
+const App = () => {
+  const location = useLocation();
+
   return (
-    <BrowserRouter>
+    <div>
+      {location.pathname === "/" && <Navbar />}
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <AboutUs />
+              <Intro />
+              <FindUs />
+            </>
+          }
+        />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Registration />} />
-        <Route path="/user-home" element={<Home />}></Route>
-        <Route path="/user-home/vendors" element={<FoodVendor />} />
-        {/* // <Route path="/user-home/vendors/:id" element={<MessDetails />} /> */}
-        <Route path="/user-home/contact" element={<Contact />} />
+        <Route path="/AdminLogin" element={<AdminLoginPage />} />
+        <Route path="/MessOwnerLogin" element={<MessOwnerLoginPage />} />
+        <Route path="/UserLogin" element={<UserLoginPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/ManageStaff" element={<ManageStaff />} />
+        <Route path="/ManageLocation" element={<ManageLocation/>} />
+        <Route path="/ManageUser" element={<ManageUser/>} />
+        <Route path="/ManageOrders" element={<ManageOrders/>} />
+        <Route path="/ManageMessList" element={<ManageMessList/>} />
+        <Route path="/ManageMessDetails" element={<ManageMessDetails/>} />
       </Routes>
-    </BrowserRouter>
+    </div>
   );
-}
+};
 
-export default App;
+const AppWithRouter = () => (
+  <Router>
+    <App />
+  </Router>
+);
+
+export default AppWithRouter;
