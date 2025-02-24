@@ -1,0 +1,7 @@
+.card {
+    @apply p-4 border rounded-lg bg-white text-center text-lg font-semibold shadow-sm hover:shadow-md transition;
+  }
+  
+  .input {
+    @apply p-2 border rounded-md w-full;
+  }
