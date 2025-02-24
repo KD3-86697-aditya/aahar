@@ -1,25 +1,26 @@
 {
-  "name": "aahar",
+  "name": "react-hello-world",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ajv": "^7.2.3",
+    "ajv-errors": "^2.0.1",
+    "ajv-formats": "^2.1.1",
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
-    "flowbite": "^2.5.2",
-    "flowbite-react": "^0.10.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-redux": "^9.2.0",
-    "react-router-dom": "^7.1.1",
-    "react-scripts": "^5.0.1",
-    "redux": "^5.0.1",
-    "yarn": "^1.22.22"
+    "react-icons": "^5.4.0",
+    "react-router-dom": "^6.29.0",
+    "react-scripts": "^3.0.1",
+    "web-vitals": "^4.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "set NODE_OPTIONS=--openssl-legacy-provider"
   },
   "eslintConfig": {
     "extends": [
@@ -38,10 +39,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.17"
   }
 }
